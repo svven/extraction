@@ -2,6 +2,9 @@
 Extraction
 ==========
 
+**IMPORTANT**: This fork has been merged into the original repo, 
+and it's already in PyPI: https://pypi.python.org/pypi/extraction/0.2
+
 Extraction is a Python package for extracting titles, descriptions,
 images and canonical urls from web pages. You might want to use Extraction
 if you're building a link aggregator where users submit links and you
