@@ -53,7 +53,7 @@ class HeadTags(Technique):
         # extract data from meta tags
         for meta_tag in soup.find_all('meta'):
             if 'name' in meta_tag.attrs and 'content' in meta_tag.attrs:
-                name = meta_tag['name']
+                name = meta_tag['name'].lower()
                 if name in self.meta_name_map:
                     name_dest = self.meta_name_map[name]
                     if name_dest not in extracted:
@@ -113,7 +113,7 @@ class FacebookOpengraphTags(Technique):
         soup = BeautifulSoup(html)
         for meta_tag in soup.find_all('meta'):
             if self.key_attr in meta_tag.attrs and 'content' in meta_tag.attrs:
-                property = meta_tag[self.key_attr]
+                property = meta_tag[self.key_attr].lower()
                 if property in self.property_map:
                     property_dest = self.property_map[property]
                     if property_dest not in extracted:
