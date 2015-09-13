@@ -1,4 +1,9 @@
 "This file contains techniques for extracting data from HTML pages."
+try:
+    import lxml
+    parser = 'lxml'
+except:
+    parser = None
 from bs4 import BeautifulSoup
 
 
@@ -44,7 +49,7 @@ class HeadTags(Technique):
     def extract(self, html):
         "Extract data from meta, link and title tags within the head tag."
         extracted = {}
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, parser)
         # extract data from title tag
         title_tag = soup.find('title')
         if title_tag:
@@ -110,7 +115,7 @@ class FacebookOpengraphTags(Technique):
     def extract(self, html):
         "Extract data from Facebook Opengraph tags."
         extracted = {}
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, parser)
         for meta_tag in soup.find_all('meta'):
             if self.key_attr in meta_tag.attrs and 'content' in meta_tag.attrs:
                 property = meta_tag[self.key_attr].lower()
@@ -168,7 +173,7 @@ class HTML5SemanticTags(Technique):
         titles = []
         descriptions = []
         videos = []
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, parser)
         for article in soup.find_all('article') or []:
             title = article.find('h1')
             if title:
@@ -207,7 +212,7 @@ class SemanticTags(Technique):
     def extract(self, html):
         "Extract data from usual semantic tags."
         extracted = {}
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, parser)
         
         for tag, dest, max_to_store in self.extract_string:
             for found in soup.find_all(tag)[:max_to_store] or []:
